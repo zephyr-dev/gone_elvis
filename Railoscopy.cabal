@@ -1,0 +1,52 @@
+name:                GoneElvis
+version:             0.1.0.0
+description:         Heroku environment deployment monitor.
+license:             MIT
+license-file:        LICENSE
+author:              Alex Babkin
+maintainer:          ababkin@gmail.com
+build-type:          Simple
+cabal-version:       >=1.8
+
+Flag Haste-inst
+  Description: either if it is being compiled with haste-inst or with cabal
+  Default: False
+
+executable GoneElvis
+  if flag(haste-inst)
+    hs-source-dirs: src
+    main-is: Main.hs
+    buildable: True
+    ghc-options: --output-html
+    build-depends:
+        base >= 4 && < 5
+      , haste-lib
+      -- , haste-perch
+      , transformers
+      , monad-loops
+      , split
+
+  else
+    hs-source-dirs: src
+    main-is:        Main.hs
+    ghc-options:    -static -Wall
+    buildable: True
+    build-depends:
+        base >= 4 && < 5
+      , text
+      , attoparsec
+      , mtl
+      , stm
+      , transformers
+      , aeson
+      , parsec
+      , lens
+      , network
+      , bytestring
+      , haste-compiler
+      -- , haste-perch
+      , monad-loops
+      , split
+      , scotty
+    extensions:    GeneralizedNewtypeDeriving
+
