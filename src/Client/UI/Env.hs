@@ -14,11 +14,11 @@ import           Types.DeployEvent
 import           Types.API (API(..))
 
 
-setDeploy :: API -> Elem -> Int -> DeployEvent -> Client ()
-setDeploy api envContainer n deploy = build (setDeployPerch api deploy n) envContainer >> return ()
+setDeploy :: API -> Elem -> DeployEvent -> Client ()
+setDeploy api envContainer deploy = build (setDeployPerch api deploy) envContainer >> return ()
 
-setDeployPerch :: API -> DeployEvent -> Int -> Perch
-setDeployPerch api deploy n = do
+setDeployPerch :: API -> DeployEvent -> Perch
+setDeployPerch api deploy = do
   div ! atr "class" "panel panel-default" $ p "HELLO"
 
   {- div ! atr "class" "panel panel-default" $ do -}

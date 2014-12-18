@@ -9,18 +9,18 @@ import           Haste.App                 (liftIO, mkConfig, remote,
 #ifndef __HASTE__
 
 import           Control.Monad             (forM_, forever)
-import           Control.Monad.Trans.Class (lift)
 
 import           Server.Deploy             (startDeployServer)
 
 #endif
 
-import           Control.Applicative       ((<$>), (<*>))
+import           Control.Applicative       ((<$>))
 import           Control.Concurrent        (forkIO)
-import           Control.Concurrent.MVar   (MVar (..), newEmptyMVar, putMVar,
+import           Control.Concurrent.MVar   (MVar, newEmptyMVar, putMVar,
                                             takeMVar)
 import           Data.List.Split           (chunksOf)
-import           Haste.App                 (MonadIO, forkServerIO)
+import           Haste.App                 (MonadIO)
+{- import           Haste.App                 (MonadIO, forkServerIO) -}
 import           Haste.JSON                (encodeJSON)
 import           Haste.Prim                (fromJSStr)
 import           Haste.Serialize           (toJSON)
@@ -29,18 +29,18 @@ import           Client.Client             (render)
 import           Types.DeployEvent
 import           Types.API                 (API(..))
 
-maxStringLength = 2048
+maxStringLength = 2048 :: Int
 
 #ifdef __HASTE__
 
-deploys = undefined
+getDeploy = undefined
 
 startDeployServer = undefined
 
 #else
 
-deploys :: MonadIO m => MVar String -> m String
-deploys = liftIO . takeMVar
+getDeploy :: MonadIO m => MVar String -> m String
+getDeploy = liftIO . takeMVar
 
 deployPump :: MVar DeployEvent -> MVar String -> IO ()
 deployPump reqs deployChunks = forever $ do
@@ -57,12 +57,12 @@ main = do
   deployChunks   <- newEmptyMVar
   
 #ifndef __HASTE__
-  forkIO $ startDeployServer reqs
-  forkIO $ requestPump reqs reqChunks
+  forkIO $ startDeployServer deploys
+  forkIO $ deployPump deploys deployChunks
 #endif
 
   runApp (mkConfig "ws://localhost:24601" 24601) $ do
-    api <- API  <$> remote (deploys deployChunks)
+    api <- API  <$> remote (getDeploy deployChunks)
 
     runClient $ withElem "envs" $ render api
 

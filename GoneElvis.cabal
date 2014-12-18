@@ -2,7 +2,6 @@ name:                GoneElvis
 version:             0.1.0.0
 description:         Heroku environment deployment monitor.
 license:             MIT
-license-file:        LICENSE
 author:              Alex Babkin
 maintainer:          ababkin@gmail.com
 build-type:          Simple

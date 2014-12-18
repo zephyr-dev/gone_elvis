@@ -1,6 +1,6 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 
-module Client.Client (render, addRequest) where
+module Client.Client (render) where
 
 import           Control.Applicative ((<$>))
 import           Control.Monad       ((<=<))
@@ -24,7 +24,7 @@ import Types.API (API(..))
 foreign import ccall scrollDown :: IO ()
 
 render :: API -> Elem -> Client ()
-render = getPayload (getRequestChunk api) >>= either (addError container) (setDeploy api container n)
+render api container = getPayload (getDeployChunk api) >>= either (addError container) (setDeploy api container)
 
   where
     getPayload :: Serialize a => Remote (Server String) -> Client (Either String a)

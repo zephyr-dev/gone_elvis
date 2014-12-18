@@ -1,0 +1,77 @@
+.request {
+  padding: 10px;
+}
+
+.request.current {
+  background-color: #ffe;
+}
+
+.request .label {
+  margin-right: 10px;
+}
+
+.get {
+  background-color: #0a0
+}
+
+.post {
+  background-color: #00a
+}
+
+.put {
+  background-color: #a0a
+}
+
+.delete {
+  background-color: #a00
+}
+
+
+.railoscopy #page-wrapper{
+  padding: 60px 10px 0;
+}
+
+.navbar {
+  width: 100%;
+}
+
+.ac-container.panel-body {
+  padding: 10px 0;
+}
+
+.panel-group .panel-heading {
+  padding: 0;
+}
+
+.panel-group .panel-title {
+  cursor: pointer;
+}
+
+.nav-pills>li>a  {
+  padding: 5px 10px;
+}
+
+.tab-content {
+  margin-top: 20px;
+}
+
+.table.general tr td:first-child {
+  width: 190px;
+  color: #aaa;
+}
+
+.table.templates tr td:last-child {
+  width: 100px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.table.templates tr td:first-child span {
+  color: #55a;
+  cursor: pointer;
+}
+
+.table.sql tr td:last-child {
+  width: 100px;
+  color: #aaa;
+}
