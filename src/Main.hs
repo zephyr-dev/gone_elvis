@@ -35,8 +35,6 @@ maxStringLength = 2048 :: Int
 
 getDeploy = undefined
 
-startDeployServer = undefined
-
 #else
 
 getDeploy :: MonadIO m => MVar String -> m String

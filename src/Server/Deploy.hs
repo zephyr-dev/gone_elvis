@@ -17,10 +17,10 @@ import Web.Scotty
 import Types.DeployEvent
 
 startDeployServer :: MVar DeployEvent -> IO ()
-startDeployServer events = do
-  putMVar events $ DeployEvent "hotel" "deadbeef"
+startDeployServer deploys = do
+  {- putMVar deploys $ DeployEvent "hotel" "deadbeef" -}
   scotty 5000 $ do
-    get "/deploy" $ do
-      liftIO $ putMVar events $ DeployEvent "hotel" "deadbeef"
+    post "/deploy" $ do
+      liftIO $ putMVar deploys $ DeployEvent "hotel" "deadbeef"
       html $ "yo!"
 
